@@ -2,6 +2,10 @@ CMAKE_MINIMUM_REQUIRED( VERSION 3.0 )
 
 PROJECT( bzip2 LANGUAGES C)
 
+SET( CMAKE_MODULE_PATH "${PROJECT_SOURCE_DIR}/cmake" ${CMAKE_MODULE_PATH} )
+
+INCLUDE( RemoveCompileOption )
+
 ADD_LIBRARY( bzip2 SHARED
 	src/blocksort.c
 	src/huffman.c
@@ -35,3 +39,9 @@ TARGET_COMPILE_OPTIONS( bzip2
 		-fpic -fPIC -Wall -Winline -O2 -g
 
 )
+
+IF( WIN32 )
+
+	RemoveCompileOption( "/RTC1" )
+
+ENDIF( )
